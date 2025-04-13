@@ -95,12 +95,7 @@ int main( int argc, char* argv[] )
 		{
 			break;
 		}
-/*
-		if ( i > 0 )
-		{
-			index[n].name[i-1] |= 0x80;
-		}
-*/
+
 		++n;
 
 		while ( !feof( in ) && ( c = fgetc( in ) ) != 0x0C )

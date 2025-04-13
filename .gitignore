@@ -1,6 +1,7 @@
-*.obj
+*.bak
+*.bds
+*.cmd
 *.exe
-/HELP/*.bds
-/HELP/*.cmd
-/HELP/*.lst
+*.lst
+*.obj
 /HELP/zmac
