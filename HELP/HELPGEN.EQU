@@ -1,0 +1,170 @@
+HELPGEN	EQU	3000H		; HELPGEN Entry Point
+$TITLE	EQU	300CH		; Display title
+$ASKIN	EQU	3012H		; Ask input file
+$ASKIJ1	EQU	3028H
+$ASKIJ2	EQU	3039H
+$ASKOUT	EQU	3058H		; Ask output file name
+$DOGEN	EQU	30BCH		; Generate HLP file
+$READLN	EQU	30F8H		; Loop to read lines from file
+$READCH	EQU	30FBH		; Loop to read chars of line
+$RDCHJ1	EQU	3112H
+$RDCHJ2	EQU	3116H
+$NOGRAF	EQU	311CH		; No graphics
+$CONVLN	EQU	3120H		; Loop to convert lines
+$CONVCH	EQU	312BH		; Loop to convert chars
+$CONVJ1	EQU	3157H		; Not in space compression
+$CONVJ2	EQU	3175H
+$CONVJ3	EQU	317CH
+$CONVJ4	EQU	31ACH		; Put char, set bit 7 if space follows
+$COMMIT	EQU	31BCH		; Commit char to buffer
+$NEXTCH	EQU	31BDH		; Bump to next char
+$ENDCMP	EQU	31C2H		; Reset COMP, commit char and bump
+$EOT	EQU	31C8H		; End-of-text
+$EOTL1	EQU	31CEH
+$EOTJ2	EQU	31E5H		; End-of-file not reached
+$EOTJ3	EQU	31EDH		; High bit of char at HL-2 is set
+SORTFL@	EQU	320BH		; Sort and file keys
+$DIV16	EQU	3224H		; Non-restoring division routine
+$TRYSUB	EQU	322AH		; Subtraction loop
+$NULL	EQU	3231H
+$PTV	EQU	3234H
+$RESTOR	EQU	3238H		; Addition loop
+$NGV	EQU	3244H
+$DONE	EQU	3246H		; End division
+$SORTOL	EQU	3257H		; Index sort outer loop
+$SORTIL	EQU	326BH		; Index sort inner loop
+$CPKEYS	EQU	329DH		; Compare index keys
+$CPKYL1	EQU	32A0H
+L32A0	EQU	32A0H		; Loop to compare keys
+$SORTIX	EQU	32B5H		; Done inner loop
+$SWAP	EQU	32C0H		; Swap index entries
+$SWAPL1	EQU	32C8H
+$FILIDX	EQU	32D3H		; End sort outer loop - File index
+_PFLG1	EQU	32D7H
+$FILIJ1	EQU	32E1H
+$FILIL2	EQU	32F1H
+$FILIL3	EQU	32FBH
+$FILIL4	EQU	3304H
+$WIDXOL	EQU	332BH		; Write index outer loop (entries)
+$WIDXIL	EQU	3335H		; Write index inner loop (key chars)
+RDKEY@	EQU	336FH		; Read and store key (downwards from $HIGH)
+$RDKYL1	EQU	3377H
+$RDKYJ2	EQU	3386H
+$ENDKEY	EQU	3394H		; End of key
+$ENDKJ1	EQU	33A4H
+$ENDKL2	EQU	33E1H
+$EOL	EQU	33F8H		; End-of-line: put 0DH or 8DH if space follows
+$EOLJ1	EQU	340CH
+$EOLL2	EQU	3414H
+$EOLJ3	EQU	3427H
+$EOLJ4	EQU	3432H
+$EOLJ5	EQU	3436H
+$EOLJ6	EQU	343BH
+$EOLJ7	EQU	343DH
+$EOLJ8	EQU	3463H
+$EOLJ9	EQU	347EH
+$EOLJ10	EQU	348EH
+$EOLJ11	EQU	3490H
+$EOLL12	EQU	3496H
+$EOLJ13	EQU	349FH
+$EOLX14	EQU	34ADH
+$EOP	EQU	34B0H		; End-of-page
+ERROR@	EQU	34DEH		; Error: Close all files and abort (A=err code)
+CLOOUT@	EQU	34F8H		; Close out file, abort on error
+$CLOUJ1	EQU	350FH
+READ@	EQU	3512H		; Read a byte
+$READJ1	EQU	351EH
+$READX	EQU	3525H
+WRITE@	EQU	3527H		; Write a byte
+$CPREC2	EQU	3534H		; Call to clear _PREC2 (call self-destroyed...)
+CPREC2@	EQU	353EH		; Clear _PREC2 (call self-destroyed...)
+$COMPSP	EQU	354FH		; Compress spaces
+$LCMPSP	EQU	3554H		; Loop to count chars to move
+$JCMPSP	EQU	355DH		; Move bytes to compress spaces
+$CNCLOS	EQU	356EH		; Sorry, cannot close file
+KWTLNG@	EQU	3577H		; Keyword exceeds maximum allowable length
+$KWTLL1	EQU	3582H
+$KWTLX	EQU	358EH
+MEMOVL@	EQU	3591H		; Memory overlay - abort
+ABORT@	EQU	3597H		; Close and abort
+CKSAME@	EQU	35A8H		; Abort if source and dest files are the same
+$CKSAMX	EQU	35C4H
+OUTKEY@	EQU	35D1H		; Display/Print an index key
+$OUTKJ1	EQU	35EDH
+$OUTKL2	EQU	35F8H
+_PFLG3	EQU	35FDH
+$OUTKJ3	EQU	3605H
+$OUTKL4	EQU	3611H
+$OUTKJ5	EQU	3618H
+$OUTKJ6	EQU	3625H
+$OUTKL7	EQU	362AH
+_PFLG2	EQU	3632H
+$OUTKX	EQU	3637H
+$OUTKJ8	EQU	363BH
+$OUTKL9	EQU	3644H
+$OUTKJA	EQU	364EH
+PFLAG@	EQU	365AH		; 'P' (print) flag specified?
+$PFLGL1	EQU	3667H
+$PFLGJ2	EQU	367AH
+$PFLGL3	EQU	36AEH
+$PFLGL4	EQU	36B7H
+$NULKEY	EQU	36CBH		; Null Key Encountered
+$NULKL1	EQU	36F0H
+$ABORT1	EQU	36F7H
+NOPRKY@	EQU	36FAH		; NO PRIOR KEY
+TULONG@	EQU	3702H		; Destination File Exceeds 65,535 characters
+SHWPCT@	EQU	370BH		; Show progress bar if length/50 > 0
+$SPCTL1	EQU	3720H
+$SPCTJ2	EQU	373BH		; Display char
+$SPCTJ3	EQU	373FH
+$SPCTX	EQU	3743H		; End of loop
+PRGRES@	EQU	374EH		; Update progress bar
+$PRGRSX	EQU	377DH
+PCTS$	EQU	3782H		; Progress bar "0 25 50 75 100 %"
+ABORT$	EQU	3793H		; System >> ABORTED << due to :
+TITLE$	EQU	37B3H		; Help System Text Processor Version 6.0
+SOURCE?	EQU	380BH		; Enter SOURCE file specification :
+TULONG$	EQU	382EH		; Destination File Exceeds 65,535 characters
+DESTIN?	EQU	387BH		; Enter DESTINATION file name     : 
+BADSRC$	EQU	389EH		; Improper Source Filename
+ANYKEY$	EQU	38B9H		; Press ANY key to continue
+HLP$	EQU	38D4H		; HLP default file extension
+FILXST?	EQU	38D7H		; file already exists - destroy it?
+CNCLOS$	EQU	3915H		; Sorry, cannot close file
+DUPKEY@	EQU	3930H		; Duplicate Keys Encountered
+$DUPKL1	EQU	3942H
+DUPKEY$	EQU	394CH		; Duplicate Keys Encountered
+CONCLD$	EQU	397DH		; Processing concluded
+KWTLNG$	EQU	3993H		; Keyword exceeds maximum allowable length
+MEMOVL$	EQU	39BEH		; Memory Overlap has occured due to too many keys
+SORTFL$	EQU	3A11H		; Sorting and filing keys
+NULKEY$	EQU	3A2AH		; Null Key Encountered - Prior Key was 
+NOPRKY$	EQU	3A51H		; NO PRIOR KEY
+_PRGINC	EQU	3A5FH		; Progress increment
+_PRGRES	EQU	3A61H		; Progress counter
+_HIGH$	EQU	3A63H		; HIGH$ address
+_COLUMN	EQU	3A65H		; Keyword column counter
+_PREC2	EQU	3A66H		; 2nd char preceding buffer
+_PREC1	EQU	3A67H		; 1st char preceding buffer
+_BUFFER	EQU	3A68H		; 80-chars line buffer
+_ENDBUF	EQU	3AB8H		; Buffer end
+_NAMOUT	EQU	3AB9H		; Output file name buffer
+_FILPOS	EQU	3AD2H		; Position in file
+_DONENT	EQU	3AD4H		; "Done" entries counter
+_KEYCTR	EQU	3AD6H		; Key chars counter (seems unneeded)
+_ENTCTR	EQU	3AD8H		; Index entries counter
+_SPCCTR	EQU	3ADAH		; White spaces counter
+_FCBIN	EQU	3ADCH		; Input FCB
+_FCBOUT	EQU	3AFCH		; Output FCB
+_BUFIN	EQU	3B1CH		; Input file buffer
+_BUFOUT	EQU	3C1CH		; Output file buffer
+_RECIN	EQU	3D1CH		; Input record buffer (1 byte)
+_RECOUT	EQU	3D1DH		; Output record buffer (1 byte)
+_PFLAGS	EQU	3D1EH		; Bit-mapped proc flags (via IY+0) B7=KEY B6=COMP B5=EOF
+_INDEX	EQU	3D1FH		; Keywords index pointer (via IX+0..4), length = 5
+SAMFIL$	EQU	3D20H		; SAME Source and Destination File - Operation terminated
+PROCSF$	EQU	3D56H		; Processing Source File
+PREPPR$	EQU	3D6EH		; Prepare printer
+KYWRDS$	EQU	3DABH		; Alphabetical listing of the keywords
+PRDATE$	EQU	3DE0H		; Listing date
+PR_ON$	EQU	3DE9H		; ' on '
